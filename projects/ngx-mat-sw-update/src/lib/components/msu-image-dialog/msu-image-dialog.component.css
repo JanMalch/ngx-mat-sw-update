@@ -1,0 +1,24 @@
+img {
+   width: calc(100% + 48px);
+   margin: -24px -24px 24px;
+   object-fit: cover;
+ }
+
+.mat-card-title,
+.mat-card-content,
+.mat-card-actions {
+  display: block;
+  text-align: center;
+}
+
+.mat-card-content {
+  margin: 16px 0 24px;
+}
+
+p {
+  white-space: pre-wrap;
+}
+
+.mat-card-actions > button:first-child {
+  margin-right: 8px;
+}

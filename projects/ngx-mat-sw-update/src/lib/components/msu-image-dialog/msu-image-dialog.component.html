@@ -1,0 +1,9 @@
+<img mat-card-image [src]="data.image">
+<mat-card-title>{{ data.title }}</mat-card-title>
+<mat-card-content>
+  <p>{{ data.description }}</p>
+</mat-card-content>
+<mat-card-actions>
+  <button mat-button [mat-dialog-close]="false">{{ data.cancelBtn }}</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>{{ data.reloadBtn }}</button>
+</mat-card-actions>

@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<mat-dialog-content>
+  <p>{{ data.description }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false">{{ data.cancelBtn }}</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>{{ data.reloadBtn }}</button>
+</mat-dialog-actions>
