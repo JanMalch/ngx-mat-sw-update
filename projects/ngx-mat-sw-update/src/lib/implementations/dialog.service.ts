@@ -18,13 +18,13 @@ export abstract class DialogMatSwUpdate extends NgxMatSwUpdateService {
     super(updates);
   }
 
-  abstract getDialogInput(locale: string): DialogInput;
+  abstract getDialogInput(data: UpdateAvailableEvent, locale: string): DialogInput;
 
   abstract get usedComponent(): Type<any>;
 
   showNotification(data: UpdateAvailableEvent): Observable<boolean> {
     const ref = this.dialog.open(this.usedComponent, {
-      data: this.getDialogInput(this.locale)
+      data: this.getDialogInput(data, this.locale)
     });
 
     return ref.afterClosed().pipe(

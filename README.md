@@ -60,7 +60,11 @@ The flow is as follows:
 |`activateUpdate(): Observable<void>`| Activates the update |  
 | `reloadPage(force?: boolean): void`| Reloads the page via `document.location.reload(force);`  
   
-With the separate `doShow`method you can decide, based on the UpdateData, if you want to show a notification (for example if it's a crucial update). If you always want to show the notification just `return true`.  
+With the separate `doShow` method you can decide, based on the update data, if you want to show a notification (for example if it's a crucial update). 
+If you always want to show the notification just `return true`.  
+
+To show different messages based on the update data, you have to write a custom implementation of `SnackBarMatSwUpdate` or `DialogMatSwUpdate`.
+See [i18n](#i18n) and the [appData section](https://angular.io/guide/service-worker-config#appdata) on the angular.io page.
 
 The `onAction` implementation most likely looks like this in most cases:
 
@@ -79,7 +83,16 @@ As there are many different ways to realize i18n in your app I decided not to en
 Both **abstract** classes `SnackBarMatSwUpdate`and `DialogMatSwUpdate` have an abstract method to change the text.
 
 #### `SnackBarMatSwUpdate`
-`getTranslation(locale: string): { description: string, reloadBtn: string }` → return an object with the snackbar text and the text for the reloadBtn. The method receives the current `LOCALE_ID`
+`getTranslation(data: UpdateAvailableEvent, locale: string): { description: string, reloadBtn: string }` 
+→ return an object with the snackbar text and the text for the reloadBtn
+
+The method receives the current `LOCALE_ID` and the update data, to change the messages individually.
 
 #### `DialogMatSwUpdate`
-`getDialogInput(locale: string): DialogInput` → return an object with the title, message, reload button and cancel button label. The method receives the current `LOCALE_ID`
+`getDialogInput(data: UpdateAvailableEvent, locale: string): DialogInput` 
+→ return an object with the title, message, reload button and cancel button label
+
+The method receives the current `LOCALE_ID` and the update data, to change the messages individually.
+
+Currently only an english version exists: `EnSnackBarMatSwUpdate` and `EnDialogMatSwUpdate`. 
+Create your own subclass of `SnackBarMatSwUpdate` or `DialogMatSwUpdate` and add your translations.

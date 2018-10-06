@@ -17,10 +17,10 @@ export abstract class SnackBarMatSwUpdate extends NgxMatSwUpdateService {
     super(updates);
   }
 
-  abstract getTranslation(locale: string): { description: string, reloadBtn: string };
+  abstract getTranslation(data: UpdateAvailableEvent, locale: string): { description: string, reloadBtn: string };
 
   showNotification(data: UpdateAvailableEvent): Observable<boolean> {
-    const {description, reloadBtn} = this.getTranslation(this.locale);
+    const {description, reloadBtn} = this.getTranslation(data, this.locale);
     const ref = this.snackBar.open(description, reloadBtn);
 
     return ref.afterDismissed().pipe(

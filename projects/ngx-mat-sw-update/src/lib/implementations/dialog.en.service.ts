@@ -4,7 +4,7 @@ import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
 import {DialogMatSwUpdate} from './dialog.service';
 import {DialogInput} from '../models';
-import {english} from '../translations';
+import {english} from '../translations/en';
 import {MSU_DIALOG_COMPONENT, MSU_DIALOG_IMAGE} from '../tokens';
 import {MsuBasicDialogComponent} from '../components/msu-basic-dialog/msu-basic-dialog.component';
 
@@ -29,7 +29,7 @@ export class EnDialogMatSwUpdate extends DialogMatSwUpdate {
     return true;
   }
 
-  getDialogInput(locale: string): DialogInput {
+  getDialogInput(data: UpdateAvailableEvent, locale: string): DialogInput {
     return {...english, image: this.image };
   }
 

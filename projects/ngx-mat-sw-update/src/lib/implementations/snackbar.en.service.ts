@@ -2,7 +2,7 @@ import {Inject, Injectable, LOCALE_ID} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
-import {english} from '../translations';
+import {english} from '../translations/en';
 import {SnackBarMatSwUpdate} from './snackbar.service';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class EnSnackBarMatSwUpdate extends SnackBarMatSwUpdate {
     return true;
   }
 
-  getTranslation(locale: string): { description: string, reloadBtn: string } {
+  getTranslation(data: UpdateAvailableEvent, locale: string): { description: string, reloadBtn: string } {
     return {description: english.description, reloadBtn: 'RELOAD'};
   }
 

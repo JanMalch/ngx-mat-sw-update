@@ -1,7 +1,7 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {MatSnackBarModule} from '@angular/material';
 import {NgxMatSwUpdateService} from './ngx-mat-sw-update.service';
-import {EnSnackBarMatSwUpdate} from './implementations';
+import {EnSnackBarMatSwUpdate} from './implementations/snackbar.en.service';
 
 @NgModule({
   imports: [
