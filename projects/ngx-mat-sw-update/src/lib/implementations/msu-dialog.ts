@@ -4,13 +4,13 @@ import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {NgxMatSwUpdateService} from '../ngx-mat-sw-update.service';
+import {MatSwUpdate} from '../mat-sw-update';
 import {DialogInput} from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
-export abstract class DialogMatSwUpdate extends NgxMatSwUpdateService {
+export abstract class MsuDialog extends MatSwUpdate {
 
   protected constructor(updates: SwUpdate,
                         protected dialog: MatDialog,

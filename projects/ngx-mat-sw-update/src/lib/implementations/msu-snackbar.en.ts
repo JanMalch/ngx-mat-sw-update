@@ -2,13 +2,12 @@ import {Inject, Injectable, LOCALE_ID} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
-import {english} from '../translations/en';
-import {SnackBarMatSwUpdate} from './snackbar.service';
+import {MsuSnackBar} from './msu-snackbar';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EnSnackBarMatSwUpdate extends SnackBarMatSwUpdate {
+export class MsuSnackBarEn extends MsuSnackBar {
 
   constructor(updates: SwUpdate,
               snackBar: MatSnackBar,
@@ -22,8 +21,8 @@ export class EnSnackBarMatSwUpdate extends SnackBarMatSwUpdate {
   }
 
   getTranslation(data: UpdateAvailableEvent, locale: string): { description: string, reloadBtn: string } {
-    return {description: english.description, reloadBtn: 'RELOAD'};
+    return {description: "There's a new update available, which brings new features and bug fixes! " +
+        "Simply refresh the page to get the latest version.", reloadBtn: 'RELOAD'};
   }
 
 }
-

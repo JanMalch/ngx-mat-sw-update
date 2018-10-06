@@ -1,15 +1,15 @@
 import {Inject, Injectable, LOCALE_ID} from '@angular/core';
-import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarConfig} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {NgxMatSwUpdateService} from '../ngx-mat-sw-update.service';
+import {MatSwUpdate} from '../mat-sw-update';
 
 @Injectable({
   providedIn: 'root'
 })
-export abstract class SnackBarMatSwUpdate extends NgxMatSwUpdateService {
+export abstract class MsuSnackBar extends MatSwUpdate {
 
   protected constructor(updates: SwUpdate,
                         protected snackBar: MatSnackBar,

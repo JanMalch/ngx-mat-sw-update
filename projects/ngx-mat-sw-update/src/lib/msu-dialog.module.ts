@@ -1,7 +1,7 @@
 import {ModuleWithProviders, NgModule, Type} from '@angular/core';
-import {MatButtonModule, MatCardModule, MatDialogModule, MatSnackBarModule} from '@angular/material';
-import {NgxMatSwUpdateService} from './ngx-mat-sw-update.service';
-import {EnDialogMatSwUpdate} from './implementations/dialog.en.service';
+import {MatButtonModule, MatCardModule, MatDialogModule} from '@angular/material';
+import {MatSwUpdate} from './mat-sw-update';
+import {MsuDialogEn} from './implementations';
 import {MSU_DIALOG_COMPONENT, MSU_DIALOG_IMAGE} from './tokens';
 import {MsuBasicDialogComponent} from './components/msu-basic-dialog/msu-basic-dialog.component';
 import {MsuImageDialogComponent} from './components/msu-image-dialog/msu-image-dialog.component';
@@ -24,8 +24,8 @@ export class MsuDialogModule {
       ngModule: MsuDialogModule,
       providers: [
         {
-          provide: NgxMatSwUpdateService,
-          useClass: EnDialogMatSwUpdate
+          provide: MatSwUpdate,
+          useClass: MsuDialogEn
         },
         {
           provide: MSU_DIALOG_COMPONENT,

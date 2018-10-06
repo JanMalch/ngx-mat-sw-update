@@ -3,12 +3,11 @@ import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
 import {from, Observable, Subject} from 'rxjs';
 import {filter, mergeMap, takeUntil} from 'rxjs/operators';
-import {DialogInput} from './models';
 
 @Injectable({
   providedIn: 'root'
 })
-export abstract class NgxMatSwUpdateService implements OnInit, OnDestroy {
+export abstract class MatSwUpdate implements OnInit, OnDestroy {
 
   protected readonly onDestroy$ = new Subject<void>();
 

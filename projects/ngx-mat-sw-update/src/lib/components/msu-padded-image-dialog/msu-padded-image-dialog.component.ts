@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {DialogInput} from "../../models";
-import {MAT_DIALOG_DATA} from "@angular/material";
-import {assertHasImageProperty} from "../../errors";
+import {Component, Inject} from '@angular/core';
+import {DialogInput} from '../../models';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {assertHasImageProperty} from '../../errors';
 
 @Component({
   selector: 'msu-padded-image-dialog',

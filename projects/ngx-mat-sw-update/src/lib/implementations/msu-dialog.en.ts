@@ -2,16 +2,15 @@ import {Inject, Injectable, LOCALE_ID, Optional, Type} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
-import {DialogMatSwUpdate} from './dialog.service';
+import {MsuDialog} from './msu-dialog';
 import {DialogInput} from '../models';
-import {english} from '../translations/en';
 import {MSU_DIALOG_COMPONENT, MSU_DIALOG_IMAGE} from '../tokens';
 import {MsuBasicDialogComponent} from '../components/msu-basic-dialog/msu-basic-dialog.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EnDialogMatSwUpdate extends DialogMatSwUpdate {
+export class MsuDialogEn extends MsuDialog {
 
   readonly usedComponent: Type<any>;
 
@@ -30,7 +29,14 @@ export class EnDialogMatSwUpdate extends DialogMatSwUpdate {
   }
 
   getDialogInput(data: UpdateAvailableEvent, locale: string): DialogInput {
-    return {...english, image: this.image };
+    return {
+      title: 'Update available',
+      cancelBtn: 'Cancel',
+      reloadBtn: 'Reload',
+      description: 'There\'s a new update available, which brings new features and bug fixes!\n'
+        + 'Simply refresh the page to get the latest version.',
+      image: this.image
+    };
   }
 
 }

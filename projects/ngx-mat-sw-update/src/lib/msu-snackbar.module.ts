@@ -1,7 +1,7 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {MatSnackBarModule} from '@angular/material';
-import {NgxMatSwUpdateService} from './ngx-mat-sw-update.service';
-import {EnSnackBarMatSwUpdate} from './implementations/snackbar.en.service';
+import {MatSwUpdate} from './mat-sw-update';
+import {MsuSnackBarEn} from './implementations';
 
 @NgModule({
   imports: [
@@ -15,8 +15,8 @@ export class MsuSnackBarModule {
       ngModule: MsuSnackBarModule,
       providers: [
         {
-          provide: NgxMatSwUpdateService,
-          useClass: EnSnackBarMatSwUpdate
+          provide: MatSwUpdate,
+          useClass: MsuSnackBarEn
         }
       ]
     };
