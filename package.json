@@ -8,6 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "build:docs": "ng build --base-href=https://janmalch.github.io/ngx-mat-sw-update/",
+    "build:docs:aot": "ng build --prod --base-href=https://janmalch.github.io/ngx-mat-sw-update/",
     "build:lib": "ng build ngx-mat-sw-update",
     "build:lib:serve": "npm run build:lib && ng serve",
     "build:lib:serve:open": "npm run build:lib && ng serve -o"
