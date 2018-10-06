@@ -2,7 +2,7 @@ import {Inject, Injectable, LOCALE_ID} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
-import {SnackBarMatSwUpdate} from '../../projects/ngx-mat-sw-update/src/lib/implementations';
+import {SnackBarMatSwUpdate} from 'ngx-mat-sw-update';
 
 @Injectable({
   providedIn: 'root'
