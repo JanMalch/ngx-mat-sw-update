@@ -127,7 +127,9 @@ The method receives the current `LOCALE_ID` and the update data, to change the m
 ## Class Overview
 
 Here's an overview over all contained classes and at what point which methods are implemented.
+
 :heavy_check_mark: = method is implemented
+
 :x: = method is `abstract`
 
 || `MatSwUpdate` | `MsuDialog` | `MsuDialogEn` | `MsuSnackBar` | `MsuSnackBarEn` |
