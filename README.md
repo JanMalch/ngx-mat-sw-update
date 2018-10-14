@@ -126,6 +126,10 @@ The method receives the current `LOCALE_ID` and the update data, to change the m
 
 ## Class Overview
 
+Here's an overview over all contained classes and at what point which methods are implemented.
+:heavy_check_mark: = method is implemented
+:x: = method is `abstract`
+
 || `MatSwUpdate` | `MsuDialog` | `MsuDialogEn` | `MsuSnackBar` | `MsuSnackBarEn` |
 |--|--|--|--|--|--|
 |`abstract class`  | :heavy_check_mark: | :heavy_check_mark: | :x:| :heavy_check_mark: |:x:|
@@ -135,5 +139,5 @@ The method receives the current `LOCALE_ID` and the update data, to change the m
 |`onAction(response: boolean): void`|:x:|:heavy_check_mark:|*inherited*|:heavy_check_mark:|*inherited*|
 |`activateUpdate(): Observable<void>`|:heavy_check_mark:|*inherited* |*inherited* |*inherited* |*inherited* |
 |`reloadPage(force?: boolean): void`|:heavy_check_mark:|*inherited* |*inherited* |*inherited* |*inherited* |
-|`getDialogInput(data: UpdateAvailableEvent, locale: string): DialogInput`||`abstract` |:heavy_check_mark: |||
-|`getTranslation(data: UpdateAvailableEvent, locale: string): { description: string, reloadBtn: string }`||||`abstract` |:heavy_check_mark: |
+|`getDialogInput(data: UpdateAvailableEvent, locale: string): DialogInput`||:x: |:heavy_check_mark: |||
+|`getTranslation(data: UpdateAvailableEvent, locale: string): { description: string, reloadBtn: string }`||||:x: |:heavy_check_mark: |
