@@ -50,7 +50,7 @@ const yourStrategy = localStorage.getItem('yourStrategy') === 'Dialog' ? MsuDial
     },
     {
       provide: MAT_DIALOG_DEFAULT_OPTIONS,
-      useValue: {disableClose: true, maxWidth: 580, hasBackdrop: true}
+      useValue: {disableClose: true,  width: "580px", maxWidth: "90vw", hasBackdrop: true}
     },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,

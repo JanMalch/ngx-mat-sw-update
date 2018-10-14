@@ -1,8 +1,17 @@
 :host {
   display: block;
   margin: 120px auto;
-  max-width: 564px;
+  width: 564px;
+  max-width: calc(100vw - 32px);
+  padding: 0 16px;
 }
+
+@media only screen and (max-width: 599px) {
+  :host {
+    margin: 0 auto;
+  }
+}
+
 
 header {
   display: flex;
@@ -21,7 +30,7 @@ div {
 input, select {
   display: block;
   margin: 4px 0;
-  width: 500px;
+  width: 100%;
   outline: none;
   border-radius: 2px;
   background: #eee;
@@ -32,17 +41,19 @@ input, select {
   box-sizing: border-box;
 }
 
-
 /* https://codepen.io/tyrellrummage/full/ZJPXgy/ */
 
 form {
   background: #fff;
   border-radius: 5px;
-  box-shadow: 0 3px 2px 0 rgba(0,0,0,.05);
+  box-shadow: 0 3px 2px 0 rgba(0, 0, 0, .05);
   padding: 2rem;
   position: relative;
   overflow: hidden;
   display: inline-block;
+  width: 100%;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
 }
 
 form:before {
@@ -52,14 +63,14 @@ form:before {
   top: 0;
   left: 0;
   background: -moz-linear-gradient(left, #04B3BA 0%, #0ABEA2 100%);
-  background: -webkit-linear-gradient(left, #04B3BA 0%,#0ABEA2 100%);
-  background: linear-gradient(to right, #04B3BA 0%,#0ABEA2 100%);
+  background: -webkit-linear-gradient(left, #04B3BA 0%, #0ABEA2 100%);
+  background: linear-gradient(to right, #04B3BA 0%, #0ABEA2 100%);
   display: block;
   position: absolute;
 }
 
 form button {
-  background: linear-gradient(to right, hsl(182, 96%, 37%) 0%,hsl(171, 90%, 39%) 100%);
+  background: linear-gradient(to right, hsl(182, 96%, 37%) 0%, hsl(171, 90%, 39%) 100%);
   color: #fff;
   font-weight: 500;
   padding: .5rem 2rem;
@@ -67,7 +78,7 @@ form button {
   border: none;
   text-transform: uppercase;
   margin-top: 1rem;
-  text-shadow: 0 1px 2px rgba(0,0,0,.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .2);
   cursor: pointer;
   outline: none;
   font-family: inherit;
