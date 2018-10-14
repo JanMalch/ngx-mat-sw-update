@@ -1,10 +1,26 @@
 {
   "name": "ngx-mat-sw-update",
+  "description": "Angular library to setup a notification for Service Worker updates.",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/material": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/pwa": "^0.8.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JanMalch/ngx-mat-sw-update.git"
+  },
+  "keywords": [
+    "Angular",
+    "TypeScript",
+    "Utility",
+    "PWA"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JanMalch/ngx-mat-sw-update/issues"
+  },
+  "homepage": "https://janmalch.github.io/ngx-mat-sw-update/"
 }
