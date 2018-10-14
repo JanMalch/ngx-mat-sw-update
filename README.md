@@ -14,7 +14,7 @@ ng add @angular/pwa
 npm install ngx-mat-sw-update  
 ```  
   
-Currently `ngx-mat-sw-update` offers two ready to use notification variants (use one of them or [implement your own](#using-custom-services)):  
+Currently `ngx-mat-sw-update` offers two ready to use notification variants (use one of them or [implement your own](#change-behaviour)):  
   
 ```typescript  
 @NgModule({  
@@ -124,3 +124,16 @@ The method receives the current `LOCALE_ID` and the update data, to change the m
 
 The method receives the current `LOCALE_ID` and the update data, to change the messages individually.
 
+## Class Overview
+
+|| `MatSwUpdate` | `MsuDialog` | `MsuDialogEn` | `MsuSnackBar` | `MsuSnackBarEn` |
+|--|--|--|--|--|--|
+|`abstract class`  | :heavy_check_mark: | :heavy_check_mark: | :x:| :heavy_check_mark: |:x:|
+|`ngOnInit(): void`|:heavy_check_mark:|*inherited* |*inherited* |*inherited* |*inherited* |
+|`doShow(data: UpdateAvailableEvent): boolean`|:x:|:x:|:heavy_check_mark:|:x:|:heavy_check_mark:|
+|`showNotification(data: UpdateAvailableEvent): Observable<boolean>`|:x:|:heavy_check_mark:|*inherited*|:heavy_check_mark:|*inherited*|
+|`onAction(response: boolean): void`|:x:|:heavy_check_mark:|*inherited*|:heavy_check_mark:|*inherited*|
+|`activateUpdate(): Observable<void>`|:heavy_check_mark:|*inherited* |*inherited* |*inherited* |*inherited* |
+|`reloadPage(force?: boolean): void`|:heavy_check_mark:|*inherited* |*inherited* |*inherited* |*inherited* |
+|`getDialogInput(data: UpdateAvailableEvent, locale: string): DialogInput`||`abstract` |:heavy_check_mark: |||
+|`getTranslation(data: UpdateAvailableEvent, locale: string): { description: string, reloadBtn: string }`||||`abstract` |:heavy_check_mark: |
