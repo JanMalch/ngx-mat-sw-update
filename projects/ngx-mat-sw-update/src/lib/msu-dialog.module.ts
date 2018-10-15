@@ -25,7 +25,7 @@ export class MsuDialogModule {
       providers: [
         {
           provide: MatSwUpdate,
-          useClass: MsuDialogEn
+          useExisting: MsuDialogEn
         },
         {
           provide: MSU_DIALOG_COMPONENT,
