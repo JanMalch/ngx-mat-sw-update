@@ -1,17 +1,15 @@
 import {Injectable, OnDestroy, OnInit} from '@angular/core';
 import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
-import {from, Observable, Subject} from 'rxjs';
+import {from, Observable, Subject, interval} from 'rxjs';
 import {filter, mergeMap, takeUntil} from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export abstract class MatSwUpdate implements OnInit, OnDestroy {
 
   protected readonly onDestroy$ = new Subject<void>();
 
-  protected constructor(protected updates: SwUpdate) {
+  protected constructor(protected updates: SwUpdate, protected period: number = 1000 * 60 * 5) {
   }
 
   ngOnInit() {
@@ -20,6 +18,12 @@ export abstract class MatSwUpdate implements OnInit, OnDestroy {
       filter(event => this.doShow(event)),
       mergeMap(event => this.showNotification(event))
     ).subscribe(result => this.onAction(result));
+
+    this.updates.checkForUpdate();
+
+    if (this.period > 0) {
+      interval(this.period).subscribe(() => this.updates.checkForUpdate());
+    }
   }
 
   abstract doShow(data: UpdateAvailableEvent): boolean;
