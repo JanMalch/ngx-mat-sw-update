@@ -16,7 +16,7 @@ export class MsuSnackBarModule {
       providers: [
         {
           provide: MatSwUpdate,
-          useExisting: MsuSnackBarEn
+          useClass: MsuSnackBarEn
         }
       ]
     };

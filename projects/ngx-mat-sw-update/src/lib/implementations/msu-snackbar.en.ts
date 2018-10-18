@@ -4,9 +4,7 @@ import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
 import {MsuSnackBar} from './msu-snackbar';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class MsuSnackBarEn extends MsuSnackBar {
 
   constructor(updates: SwUpdate,

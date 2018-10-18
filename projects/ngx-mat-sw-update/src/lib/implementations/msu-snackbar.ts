@@ -6,9 +6,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {MatSwUpdate} from '../mat-sw-update';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export abstract class MsuSnackBar extends MatSwUpdate {
 
   protected constructor(updates: SwUpdate,

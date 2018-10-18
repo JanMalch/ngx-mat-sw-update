@@ -7,9 +7,7 @@ import {DialogInput} from '../models';
 import {MSU_DIALOG_COMPONENT, MSU_DIALOG_IMAGE} from '../tokens';
 import {MsuBasicDialogComponent} from '../components/msu-basic-dialog/msu-basic-dialog.component';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class MsuDialogEn extends MsuDialog {
 
   readonly usedComponent: Type<any>;

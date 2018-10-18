@@ -7,9 +7,7 @@ import {map} from 'rxjs/operators';
 import {MatSwUpdate} from '../mat-sw-update';
 import {DialogInput} from '../models';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export abstract class MsuDialog extends MatSwUpdate {
 
   protected constructor(updates: SwUpdate,
