@@ -1,7 +1,7 @@
 {
   "name": "ngx-mat-sw-update",
   "description": "Angular library to setup a notification for Service Worker updates.",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
