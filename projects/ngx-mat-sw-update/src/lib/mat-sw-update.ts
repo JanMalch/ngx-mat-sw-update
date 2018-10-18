@@ -8,8 +8,9 @@ import {filter, mergeMap, takeUntil} from 'rxjs/operators';
 export abstract class MatSwUpdate implements OnInit, OnDestroy {
 
   protected readonly onDestroy$ = new Subject<void>();
+  protected period: number = 1000 * 60 * 5;
 
-  protected constructor(protected updates: SwUpdate, protected period: number = 1000 * 60 * 5) {
+  protected constructor(protected updates: SwUpdate) {
   }
 
   ngOnInit() {
