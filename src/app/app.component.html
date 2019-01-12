@@ -1,36 +1,34 @@
 <header>
   <h1>ngx-mat-sw-update</h1>
   <div>
-    <a href="https://github.com/JanMalch/ngx-mat-sw-update">GitHub</a>&nbsp;&nbsp;<a href="http://npmjs.com/package/ngx-mat-sw-update">npm</a>
+    <a href="https://github.com/JanMalch/ngx-mat-sw-update">GitHub</a>&nbsp;&nbsp;<a
+    href="http://npmjs.com/package/ngx-mat-sw-update">npm</a>
   </div>
 </header>
-<form #myForm="ngForm" (ngSubmit)="register(myForm)" novalidate>
-  <div>
-    <label>Notification type</label>
-    <select name="yourStrategy" [ngModel]="initStrat">
-      <option value="SnackBar">SnackBar</option>
-      <option value="Dialog">Dialog</option>
-    </select>
-  </div>
-  <div>
-    <label>Dialog Designs</label>
-    <select name="yourDialogComponent" [ngModel]="initDesign">
-      <option value="Basic">Basic</option>
-      <option value="Image">Image</option>
-      <option value="Padded">Padded Image</option>
-    </select>
-  </div>
-  <div>
-    <label>Image URL for Image / Padded Image Dialogs</label>
-    <input type="text" name="yourImageUrl" [ngModel]="initImg"/>
-  </div>
-  <button type="submit">Save and Reload</button>
-</form>
-<p>
-  <small>The ServiceWorker updates are mocked via Angular's DI for this demo. They appear every time you open this
-    page. Check out the GitHub repo to learn more about how you can configure these notifications!
-  </small>
-  <br/>
-  <small>This demo doesn't run in AOT mode, so you can test out the different variations.
-  </small>
-</p>
+
+<ng-container *mat-sw-update="let available$; let ctrl = controller">
+  <button (click)="ctrl.checkForUpdate()">Check for Update</button>
+  <button (click)="ctrl.forceNotification()">
+    {{ (available$ | async) ? 'Update available' : 'No update available' }}
+  </button>
+</ng-container>
+
+
+<table>
+  <tr>
+    <th>Checks</th>
+    <th>Updates</th>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li *ngFor="let check of checks">{{ check | date:"yyyy/MM/dd HH:mm:ss" }}</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li *ngFor="let update of updates">{{ update | date:"yyyy/MM/dd HH:mm:ss" }}</li>
+      </ul>
+    </td>
+  </tr>
+</table>

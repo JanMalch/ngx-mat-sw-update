@@ -15,50 +15,103 @@ npm install ngx-mat-sw-update
 ```  
   
 Currently `ngx-mat-sw-update` offers two ready to use notification variants (use one of them or [implement your own](#change-behaviour)):  
-  
+   
+>You can test out all included variations on [janmalch.github.io/ngx-mat-sw-update](https://janmalch.github.io/ngx-mat-sw-update).  
+
+#### English SnackBar notification & check once on startup
+
 ```typescript  
 @NgModule({  
   imports: [  
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),  
-    MsuSnackBarModule.forRoot(), // show a SnackBar as notification    
-    MsuDialogModule.forRoot() // show a Dialog as notification 
+    MatSnackBarModule
+  ], 
+  providers: [
+    { provide: MatSwUpdate, useClass: MsuSnackBarEn }
   ]
 })  
 export class AppModule {  
   constructor(matUpdates: MatSwUpdate) {  
-    matUpdates.ngOnInit();  
+    matUpdates.checkForUpdate();  
   }  
 }  
 ```  
-  
-  
-## Usage  
-  
-### `MsuDialogModule`  
-  
-The `MsuDialogModule.forRoot` method takes 2 parameters:  
-  
-* `dialogComponent: Type<any> = MsuBasicDialogComponent` → the component to show in the dialog.   
-Defaults to a simple text message. You can put your own custom component here.  
-* `imageUrl?: string` → `ngx-mat-sw-update` brings two custom components which include images. You can simply change the image with this parameter.  
-  
->You can test out all included variations on [janmalch.github.io/ngx-mat-sw-update](https://janmalch.github.io/ngx-mat-sw-update).  
-  
-### Change behaviour  
+
+#### English Dialog notification & check in interval
+
+```typescript  
+@NgModule({  
+  imports: [  
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),  
+    MsuDialogModule.forRoot(MsuPaddedImageDialogComponent, 'https://firebase.google.com/images/homepage/grow_2x.png')
+  ], 
+  providers: [
+    { provide: MatSwUpdate, useClass: MsuDialogEn }
+  ]
+})  
+export class AppModule {  
+  constructor(matUpdates: MatSwUpdate) {  
+    interval(15 * 60 * 1000).subscribe(() => matUpdates.checkForUpdate());  
+  }  
+}  
+``` 
+
+>Please consult the [docs](https://angular.io/guide/service-worker-communication#checking-for-updates), when to check for updates.
+
+## `mat-sw-update` directive
+
+```typescript  
+imports: [  
+  ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),  
+  MsuDirectiveModule,
+  // ...
+``` 
+
+You can use the `mat-sw-update` directive, to easily show update information in your templates.
+
+Usage:
+
+```html
+<ng-container *mat-sw-update="let available$; let ctrl = controller">
+  <button (click)="ctrl.checkForUpdate()">Check for Update</button>
+  <button (click)="ctrl.forceNotification()">
+    {{ (available$ | async) ? 'Update available' : 'No update available' }}
+  </button>
+</ng-container>
+``` 
+
+`ctrl.forceNotification` will only show the notification, if an update is available.
+
+The directive provides the following context:
+
+```typescript
+interface MsuDirectiveContext {
+  $implicit: Observable<boolean>; // emits true when an update is available. Won't emit if no update is available.
+  controller: {
+    runOnAction: (response?: boolean) => void;
+    forceNotification: () => void;
+    checkForUpdate: () => void;
+  };
+}
+```
+
+If you call `runOnAction` without arguments it defaults to `true`.
+
+## Change behaviour  
   
 `ngx-mat-sw-update` aims to be quickly ready to use but also offer the possibility to adjust to your needs.  
   
 To achieve this the library has an **abstract** `MatSwUpdate` at its core. It offers a simple API to change individual parts of the update process.  
 The flow is as follows:  
   
-| Step | Action | `abstract` |  
-|--|--|--|  
-| `ngOnInit(): void` | Initialize the update process. You have to call this manually! |   
-| `doShow(data: UpdateAvailableEvent): boolean`| Determines if a notification should be displayed | :heavy_check_mark:  
-| `showNotification(data: UpdateAvailableEvent): Observable<boolean>`| Shows the notification and returns an observable that indicates if the user confirmed the update | :heavy_check_mark:  
-| `onAction(response: boolean): void`| Receives the response from above and acts upon it. |  :heavy_check_mark:  
-| `activateUpdate(): Observable<void>`| Activates the update |  
-| `reloadPage(force?: boolean): void`| Reloads the page via `document.location.reload(force);`  
+| Step | Action | `abstract` |
+|--|--|--|
+| `checkForUpdate(): void` | Checks for updates and the following steps will start, if an update is available. ||
+| `doShow(data: UpdateAvailableEvent): boolean`| Determines if a notification should be displayed | :heavy_check_mark: |
+| `showNotification(data: UpdateAvailableEvent): Observable<boolean>`| Shows the notification and returns an observable that indicates if the user confirmed the update | :heavy_check_mark: | 
+| `onAction(response: boolean): void`| Receives the response from above and acts upon it. Defaults to activating the update and reloading the page afterwards. || 
+| `activateUpdate(): Observable<void>`| Activates the update ||
+| `reloadPage(force?: boolean): void`| Reloads the page via `document.location.reload(force);`||
   
 With the separate `doShow` method you can decide, based on the update data, if you want to show a notification (for example if it's a crucial update). 
 If you always want to show the notification just `return true`.  
@@ -66,63 +119,69 @@ If you always want to show the notification just `return true`.
 To show different messages based on the update data, you have to write a custom implementation of `MsuSnackBar` or `MsuDialog`.
 See [i18n](#i18n) and the [appData section](https://angular.io/guide/service-worker-config#appdata) on the angular.io page.
 
-The `onAction` implementation most likely looks like this in most cases:
-
-```typescript
-onAction(response: boolean): void {  
-  if (response) {  
-    this.activateUpdate().subscribe(() => this.reloadPage());  
-  }  
-}
-```
-
 ### Using custom implementations
 
-If you implemented a custom service you don't have to import the modules mentioned above.
-Change your core module to this:
+To use a custom implementation simply provide it in your core module, like above.
 
 ```typescript  
 @NgModule({  
   imports: [  
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-    MatSnackBarModule // you have to import the necessary material modules yourself
+    MatSnackBarModule
   ],
   providers: [
     {
       provide: MatSwUpdate,
-      useClass: MsuCustomSnackBar
+      useClass: MyCustomMsu
     }
   ]
 })  
 export class AppModule {  
   constructor(matUpdates: MatSwUpdate) { // this can stay the same 
-    matUpdates.ngOnInit();  
+    matUpdates.checkForUpdate();  
   }  
 }  
 ```
 
-To use a custom service with the existing dialogs simply import the `MsuDialogModule` module and add the provider like above.
-You can now use the existing MsuDialogComponents
+You have to inject certain dependencies in the base class. Example for `MsuSnackBar`:
 
-### i18n and custom messages
+```typescript
+export class MyCustomMsu extends MsuSnackBar {
+  constructor(updates: SwUpdate,
+              snackBar: MatSnackBar) {
+    super(updates, snackBar);
+  }
+  // ...
+```
 
-As there are many different ways to realize i18n in your app I decided not to enforce any particular way so that you don't end up with multiple strategies.
+## Test notification
+
+You can't properly test Service Worker updates with `ng serve --prod`. 
+To check if your notification looks fine, you can provide the `SwUpdateMock` class for `SwUpdate`.
+Every time you call `checkForUpdate` on `MatSwUpdate` an update will be found, thus triggering the flow. 
+
+```typescript
+providers: [
+  { provide: SwUpdate, useClass: SwUpdateMock },
+  // ...
+]
+```
+
+## i18n
+
+As there are many different ways to realize i18n in your app, the library does not to enforce any particular way so that you don't end up with multiple strategies.
 Currently only an english version exists: `MsuSnackBarEn` and `MsuDialogEn`. 
 
 To use custom translations and messages, you have to create your own subclass of `MsuSnackBar`, `MsuDialog` or `MatSwUpdate`.
 Both `MsuSnackBar` and `MsuDialog` have an abstract method to change the text.
 
 #### `MsuSnackBar`
-`getTranslation(data: UpdateAvailableEvent, locale: string): { description: string, reloadBtn: string }` 
+`getTranslation(data: UpdateAvailableEvent): { description: string, reloadBtn: string }` 
 → return an object with the snackbar text and the text for the reload button
 
-The method receives the current `LOCALE_ID` and the update data, to change the messages individually.
-
 #### `MsuDialog`
-`getDialogInput(data: UpdateAvailableEvent, locale: string): DialogInput` 
+`getDialogInput(data: UpdateAvailableEvent): DialogInput` 
 → return an object with the title, message, reload button and cancel button label
-
-The method receives the current `LOCALE_ID` and the update data, to change the messages individually.
 
 ## Class Overview
 
@@ -131,14 +190,13 @@ Here's an overview over all contained classes and at what point which methods ar
 :heavy_check_mark: = method is implemented
 
 :x: = method is `abstract`
-
-|| `MatSwUpdate` | `MsuDialog` | `MsuDialogEn` | `MsuSnackBar` | `MsuSnackBarEn` |
+| `MatSwUpdate` | `MsuDialog` | `MsuDialogEn` | `MsuSnackBar` | `MsuSnackBarEn` |
 |--|--|--|--|--|--|
 |`abstract class`  | :heavy_check_mark: | :heavy_check_mark: | :x:| :heavy_check_mark: |:x:|
 |`ngOnInit(): void`|:heavy_check_mark:|*inherited* |*inherited* |*inherited* |*inherited* |
 |`doShow(data: UpdateAvailableEvent): boolean`|:x:|:x:|:heavy_check_mark:|:x:|:heavy_check_mark:|
 |`showNotification(data: UpdateAvailableEvent): Observable<boolean>`|:x:|:heavy_check_mark:|*inherited*|:heavy_check_mark:|*inherited*|
-|`onAction(response: boolean): void`|:x:|:heavy_check_mark:|*inherited*|:heavy_check_mark:|*inherited*|
+|`onAction(response: boolean): void`|:heavy_check_mark:|*inherited*|*inherited*|:heavy_check_mark:|*inherited*|
 |`activateUpdate(): Observable<void>`|:heavy_check_mark:|*inherited* |*inherited* |*inherited* |*inherited* |
 |`reloadPage(force?: boolean): void`|:heavy_check_mark:|*inherited* |*inherited* |*inherited* |*inherited* |
 |`getDialogInput(data: UpdateAvailableEvent, locale: string): DialogInput`||:x: |:heavy_check_mark: |||

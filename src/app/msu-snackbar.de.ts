@@ -1,18 +1,15 @@
-import {Inject, Injectable, LOCALE_ID} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
 import {MsuSnackBar} from 'ngx-mat-sw-update';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DeSnackBarMatSwUpdate extends MsuSnackBar {
 
   constructor(updates: SwUpdate,
-              snackBar: MatSnackBar,
-              @Inject(LOCALE_ID) locale: string) {
-    super(updates, snackBar, locale);
+              snackBar: MatSnackBar) {
+    super(updates, snackBar);
   }
 
   doShow(data: UpdateAvailableEvent): boolean {
@@ -20,7 +17,7 @@ export class DeSnackBarMatSwUpdate extends MsuSnackBar {
     return true;
   }
 
-  getTranslation(data: UpdateAvailableEvent, locale: string): { description: string, reloadBtn: string } {
+  getTranslation(data: UpdateAvailableEvent): { description: string, reloadBtn: string } {
     return {
       description: 'Eine aktualisierte Version der Website steht zur Verfügung. Klicken sie jetzt auf den Button!',
       reloadBtn: 'UPDATE'

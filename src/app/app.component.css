@@ -6,12 +6,6 @@
   padding: 0 16px;
 }
 
-@media only screen and (max-width: 599px) {
-  :host {
-    margin: 0 auto;
-  }
-}
-
 
 header {
   display: flex;
@@ -19,57 +13,9 @@ header {
   justify-content: space-between;
 }
 
-p {
-  margin: 1em 0.25em;
-}
-
-div {
-  margin: 0 0 24px;
-}
-
-input, select {
-  display: block;
-  margin: 4px 0;
-  width: 100%;
-  outline: none;
-  border-radius: 2px;
-  background: #eee;
-  border: 1px solid #e0e0e0;
-  padding: 8px;
-  color: hsla(182, 96%, 27%, 1);
-  font-size: inherit;
-  box-sizing: border-box;
-}
-
 /* https://codepen.io/tyrellrummage/full/ZJPXgy/ */
 
-form {
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 3px 2px 0 rgba(0, 0, 0, .05);
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-  width: 100%;
-  max-width: calc(100vw - 32px);
-  box-sizing: border-box;
-}
-
-form:before {
-  content: '';
-  width: 100%;
-  height: .5rem;
-  top: 0;
-  left: 0;
-  background: -moz-linear-gradient(left, #04B3BA 0%, #0ABEA2 100%);
-  background: -webkit-linear-gradient(left, #04B3BA 0%, #0ABEA2 100%);
-  background: linear-gradient(to right, #04B3BA 0%, #0ABEA2 100%);
-  display: block;
-  position: absolute;
-}
-
-form button {
+button {
   background: linear-gradient(to right, hsl(182, 96%, 37%) 0%, hsl(171, 90%, 39%) 100%);
   color: #fff;
   font-weight: 500;
@@ -83,4 +29,10 @@ form button {
   outline: none;
   font-family: inherit;
   font-size: 14px;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  margin-top: 24px;
 }

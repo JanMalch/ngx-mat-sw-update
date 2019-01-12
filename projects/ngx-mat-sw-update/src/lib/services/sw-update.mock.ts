@@ -1,12 +1,13 @@
-import {Injectable} from '@angular/core';
-import {of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class SwUpdateMock {
 
-  readonly available = of({});
+  private readonly _available = new Subject();
+
+  get available(): Observable<any> {
+    return this._available.asObservable();
+  }
+
   readonly activated = of({});
 
   constructor() {
@@ -15,6 +16,7 @@ export class SwUpdateMock {
   readonly isEnabled = true;
 
   checkForUpdate(): Promise<void> {
+    this._available.next({});
     return Promise.resolve();
   }
 
