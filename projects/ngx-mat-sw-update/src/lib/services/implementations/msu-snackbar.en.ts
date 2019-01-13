@@ -1,4 +1,3 @@
-import {Inject, Optional} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
