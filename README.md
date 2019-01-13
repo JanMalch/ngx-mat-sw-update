@@ -156,9 +156,10 @@ export class MyCustomMsu extends MsuSnackBar {
 
 ## Test notification
 
-You can't properly test Service Worker updates with `ng serve --prod`. 
-To check if your notification looks fine, you can provide the `SwUpdateMock` class for `SwUpdate`.
-Every time you call `checkForUpdate` on `MatSwUpdate` an update will be found, thus triggering the flow. 
+Usually you can't properly test Service Worker updates with `ng serve` or `ng serve --prod`. 
+To check if your notification looks fine, you can provide the included `SwUpdateMock` class for `SwUpdate`.
+Every time you call `checkForUpdate` on `MatSwUpdate` an update will be found, thus triggering the flow.
+This will also work in dev mode!
 
 ```typescript
 providers: [
