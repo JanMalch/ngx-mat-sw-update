@@ -2,12 +2,12 @@ import {OnDestroy} from '@angular/core';
 import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
 import {BehaviorSubject, from, Observable, Subject} from 'rxjs';
-import {filter, map, mergeMap, takeUntil, tap} from 'rxjs/operators';
+import {filter, mergeMap, takeUntil, tap} from 'rxjs/operators';
 
 export abstract class MatSwUpdate implements OnDestroy {
 
   protected readonly onDestroy$ = new Subject<void>();
-  protected readonly _updateAvailable$ = new BehaviorSubject<boolean>(false);
+  protected readonly _availableUpdate$ = new BehaviorSubject<UpdateAvailableEvent>(undefined);
   protected readonly _lastCheck$ = new Subject<Date>();
   private forceNext = false;
   private running = false;
@@ -15,12 +15,14 @@ export abstract class MatSwUpdate implements OnDestroy {
   protected constructor(protected updates: SwUpdate) {
   }
 
-  get updateAvailable$(): Observable<boolean> {
-    return this._updateAvailable$.asObservable();
+  get availableUpdate$(): Observable<UpdateAvailableEvent> {
+    return this._availableUpdate$.asObservable().pipe(
+      filter(event => event !== undefined)
+    );
   }
 
-  get updateAvailable(): boolean {
-    return this._updateAvailable$.getValue();
+  get availableUpdate(): UpdateAvailableEvent {
+    return this._availableUpdate$.getValue();
   }
 
   get lastCheck$(): Observable<Date> {
@@ -35,12 +37,10 @@ export abstract class MatSwUpdate implements OnDestroy {
     if (!this.running) {
       this.updates.available.pipe(
         takeUntil(this.onDestroy$),
-        tap(() => this._updateAvailable$.next(true)),
+        tap(event => this._availableUpdate$.next(event)),
         filter(event => this.shouldForce() || this.doShow(event)),
-        mergeMap(event => this.showNotification(event).pipe(
-          map(result => ({ result, event }))
-        ))
-      ).subscribe(({ result, event }) => this.onAction(result, event));
+        mergeMap(event => this.showNotification(event))
+      ).subscribe(result => this.onAction(result, this.availableUpdate));
 
       this.running = true;
     }
@@ -78,7 +78,7 @@ export abstract class MatSwUpdate implements OnDestroy {
 
   ngOnDestroy() {
     this._lastCheck$.complete();
-    this._updateAvailable$.complete();
+    this._availableUpdate$.complete();
     this.onDestroy$.next();
     this.onDestroy$.complete();
   }

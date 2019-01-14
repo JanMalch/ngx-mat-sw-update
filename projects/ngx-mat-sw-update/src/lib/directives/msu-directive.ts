@@ -1,9 +1,10 @@
 import {Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
 import {MatSwUpdate} from "../services/mat-sw-update";
 import {Observable} from "rxjs";
+import {UpdateAvailableEvent} from "@angular/service-worker/src/low_level";
 
 export interface MsuDirectiveContext {
-  $implicit: Observable<boolean>;
+  $implicit: Observable<UpdateAvailableEvent>;
   controller: {
     runOnAction: (response?: boolean) => void;
     forceNotification: () => void;
@@ -27,10 +28,10 @@ export class MsuDirective implements OnInit, OnDestroy {
 
   private createView() {
     this.vcr.createEmbeddedView<MsuDirectiveContext>(this.tmpl, {
-      $implicit: this.msuService.updateAvailable$,
+      $implicit: this.msuService.availableUpdate$,
       controller: {
        forceNotification: () => { this.msuService.forceNotification(); },
-       runOnAction: (response: boolean = true) => { this.msuService.onAction(response); },
+       runOnAction: (response: boolean = true) => { this.msuService.onAction(response, this.msuService.availableUpdate); },
        checkForUpdate: () => { this.msuService.checkForUpdate(); }
       }
     });

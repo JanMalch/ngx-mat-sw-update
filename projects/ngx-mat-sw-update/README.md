@@ -43,7 +43,10 @@ export class AppModule {
 @NgModule({  
   imports: [  
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),  
-    MsuDialogModule.forRoot(MsuPaddedImageDialogComponent, 'https://firebase.google.com/images/homepage/grow_2x.png')
+    MsuDialogModule.forRoot(MsuPaddedImageDialogComponent,
+      'https://firebase.google.com/images/homepage/grow_2x.png',
+      { disableClose: true }
+    )
   ], 
   providers: [
     { provide: MatSwUpdate, useClass: MsuDialogEn }
@@ -75,7 +78,7 @@ Usage:
 <ng-container *mat-sw-update="let available$; let ctrl = controller">
   <button (click)="ctrl.checkForUpdate()">Check for Update</button>
   <button (click)="ctrl.forceNotification()">
-    {{ (available$ | async) ? 'Update available' : 'No update available' }}
+    {{ !!(available$ | async) ? 'Update available' : 'No update available' }}
   </button>
 </ng-container>
 ``` 
@@ -86,7 +89,7 @@ The directive provides the following context:
 
 ```typescript
 interface MsuDirectiveContext {
-  $implicit: Observable<boolean>; // emits true when an update is available. Won't emit if no update is available.
+  $implicit: Observable<UpdateAvailableEvent>; // emits the update event when an update is available. Won't emit if no update is available.
   controller: {
     runOnAction: (response?: boolean) => void;
     forceNotification: () => void;
