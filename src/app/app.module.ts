@@ -36,7 +36,7 @@ import {MAT_DIALOG_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angula
     },
     {
       provide: MAT_DIALOG_DEFAULT_OPTIONS,
-      useValue: {disableClose: true, width: "580px", maxWidth: "90vw", hasBackdrop: true}
+      useValue: {disableClose: false, width: "580px", maxWidth: "90vw", hasBackdrop: true}
     },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
