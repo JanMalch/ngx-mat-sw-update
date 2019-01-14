@@ -24,7 +24,10 @@ import {MAT_DIALOG_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angula
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     MsuDirectiveModule,
-    MsuDialogModule.forRoot(MsuPaddedImageDialogComponent, 'https://firebase.google.com/images/homepage/grow_2x.png')
+    MsuDialogModule.forRoot(MsuPaddedImageDialogComponent,
+      'https://firebase.google.com/images/homepage/grow_2x.png',
+      { disableClose: true }
+    )
   ],
   providers: [
     {

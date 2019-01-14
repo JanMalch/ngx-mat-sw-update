@@ -1,18 +1,19 @@
 import {Inject, Type} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
 import {MsuDialog} from './msu-dialog';
 import {DialogInput} from '../../models';
-import {MSU_DIALOG_COMPONENT, MSU_DIALOG_IMAGE} from '../../tokens';
+import {MSU_DIALOG_COMPONENT, MSU_DIALOG_CONFIG, MSU_DIALOG_IMAGE} from '../../tokens';
 
 export class MsuDialogEn extends MsuDialog {
 
   constructor(updates: SwUpdate,
               dialog: MatDialog,
               @Inject(MSU_DIALOG_COMPONENT) readonly usedComponent: Type<any>,
-              @Inject(MSU_DIALOG_IMAGE) protected image: string) {
-    super(updates, dialog);
+              @Inject(MSU_DIALOG_IMAGE) protected image: string,
+              @Inject(MSU_DIALOG_CONFIG) msuDialogConfig: MatDialogConfig) {
+    super(updates, dialog, msuDialogConfig);
   }
 
   doShow(data: UpdateAvailableEvent): boolean {

@@ -1,6 +1,6 @@
 import {ModuleWithProviders, NgModule, Type} from '@angular/core';
-import {MatButtonModule, MatCardModule, MatDialogModule} from '@angular/material';
-import {MSU_DIALOG_COMPONENT, MSU_DIALOG_IMAGE} from '../tokens';
+import {MatButtonModule, MatCardModule, MatDialogConfig, MatDialogModule} from '@angular/material';
+import {MSU_DIALOG_COMPONENT, MSU_DIALOG_CONFIG, MSU_DIALOG_IMAGE} from '../tokens';
 import {MsuBasicDialogComponent} from '../components/msu-basic-dialog/msu-basic-dialog.component';
 import {MsuImageDialogComponent} from '../components/msu-image-dialog/msu-image-dialog.component';
 import {MsuPaddedImageDialogComponent} from '../components/msu-padded-image-dialog/msu-padded-image-dialog.component';
@@ -27,7 +27,9 @@ export class MsuDialogModule {
    * @param useComponent The component to show in the dialog
    * @param imageUrl The image URL used in certain components
    */
-  static forRoot(useComponent: Type<any> = MsuBasicDialogComponent, imageUrl?: string): ModuleWithProviders {
+  static forRoot(useComponent: Type<any> = MsuBasicDialogComponent,
+                 imageUrl?: string,
+                 msuDialogConfig: MatDialogConfig = {}): ModuleWithProviders {
     return {
       ngModule: MsuDialogModule,
       providers: [
@@ -38,6 +40,10 @@ export class MsuDialogModule {
         {
           provide: MSU_DIALOG_IMAGE,
           useValue: imageUrl
+        },
+        {
+          provide: MSU_DIALOG_CONFIG,
+          useValue: msuDialogConfig
         }
       ]
     };

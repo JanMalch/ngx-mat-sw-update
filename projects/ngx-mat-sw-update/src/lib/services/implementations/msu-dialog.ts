@@ -1,5 +1,5 @@
 import {Type} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
 import {Observable} from 'rxjs';
@@ -10,7 +10,8 @@ import {DialogInput} from '../../models';
 export abstract class MsuDialog extends MatSwUpdate {
 
   protected constructor(updates: SwUpdate,
-                        protected dialog: MatDialog) {
+                        protected dialog: MatDialog,
+                        protected readonly msuDialogConfig: MatDialogConfig) {
     super(updates);
   }
 
@@ -20,6 +21,7 @@ export abstract class MsuDialog extends MatSwUpdate {
 
   showNotification(data: UpdateAvailableEvent): Observable<boolean> {
     const ref = this.dialog.open(this.usedComponent, {
+      ...this.msuDialogConfig,
       data: this.getDialogInput(data)
     });
 
