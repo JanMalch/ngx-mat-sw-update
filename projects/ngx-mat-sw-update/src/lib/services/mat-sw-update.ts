@@ -2,7 +2,7 @@ import {OnDestroy} from '@angular/core';
 import {SwUpdate} from '@angular/service-worker';
 import {UpdateAvailableEvent} from '@angular/service-worker/src/low_level';
 import {BehaviorSubject, from, Observable, Subject} from 'rxjs';
-import {filter, mergeMap, takeUntil, tap} from 'rxjs/operators';
+import {filter, map, mergeMap, takeUntil, tap} from 'rxjs/operators';
 
 export abstract class MatSwUpdate implements OnDestroy {
 
@@ -37,8 +37,10 @@ export abstract class MatSwUpdate implements OnDestroy {
         takeUntil(this.onDestroy$),
         tap(() => this._updateAvailable$.next(true)),
         filter(event => this.shouldForce() || this.doShow(event)),
-        mergeMap(event => this.showNotification(event))
-      ).subscribe(result => this.onAction(result));
+        mergeMap(event => this.showNotification(event).pipe(
+          map(result => ({ result, event }))
+        ))
+      ).subscribe(({ result, event }) => this.onAction(result, event));
 
       this.running = true;
     }
@@ -55,7 +57,7 @@ export abstract class MatSwUpdate implements OnDestroy {
     }
   }
 
-  onAction(response: boolean): void {
+  onAction(response: boolean, data: UpdateAvailableEvent): void {
     if (response) {
       this.activateUpdate().subscribe(() => this.reloadPage());
     }

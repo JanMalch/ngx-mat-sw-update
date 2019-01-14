@@ -109,7 +109,7 @@ The flow is as follows:
 | `checkForUpdate(): void` | Checks for updates and the following steps will start, if an update is available. ||
 | `doShow(data: UpdateAvailableEvent): boolean`| Determines if a notification should be displayed | :heavy_check_mark: |
 | `showNotification(data: UpdateAvailableEvent): Observable<boolean>`| Shows the notification and returns an observable that indicates if the user confirmed the update | :heavy_check_mark: | 
-| `onAction(response: boolean): void`| Receives the response from above and acts upon it. Defaults to activating the update and reloading the page afterwards. || 
+| `onAction(response: boolean, data: UpdateAvailableEvent): void`| Receives the response from above and acts upon it. Defaults to activating the update and reloading the page afterwards. || 
 | `activateUpdate(): Observable<void>`| Activates the update ||
 | `reloadPage(force?: boolean): void`| Reloads the page via `document.location.reload(force);`||
   
@@ -197,7 +197,7 @@ Here's an overview over all contained classes and at what point which methods ar
 |`ngOnInit(): void`|:heavy_check_mark:|*inherited* |*inherited* |*inherited* |*inherited* |
 |`doShow(data: UpdateAvailableEvent): boolean`|:x:|:x:|:heavy_check_mark:|:x:|:heavy_check_mark:|
 |`showNotification(data: UpdateAvailableEvent): Observable<boolean>`|:x:|:heavy_check_mark:|*inherited*|:heavy_check_mark:|*inherited*|
-|`onAction(response: boolean): void`|:heavy_check_mark:|*inherited*|*inherited*|:heavy_check_mark:|*inherited*|
+|`onAction(response: boolean, data: UpdateAvailableEvent): void`|:heavy_check_mark:|*inherited*|*inherited*|:heavy_check_mark:|*inherited*|
 |`activateUpdate(): Observable<void>`|:heavy_check_mark:|*inherited* |*inherited* |*inherited* |*inherited* |
 |`reloadPage(force?: boolean): void`|:heavy_check_mark:|*inherited* |*inherited* |*inherited* |*inherited* |
 |`getDialogInput(data: UpdateAvailableEvent, locale: string): DialogInput`||:x: |:heavy_check_mark: |||
