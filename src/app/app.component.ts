@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.msu.lastCheck$.subscribe(date => this.checks.push(date));
-    this.msu.updateAvailable$.pipe(
+    this.msu.availableUpdate$.pipe(
       map(() => new Date())
     ).subscribe(date => this.updates.push(date));
 
