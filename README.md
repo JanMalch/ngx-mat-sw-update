@@ -59,7 +59,7 @@ export class AppModule {
 }  
 ``` 
 
->Please consult the [docs](https://angular.io/guide/service-worker-communication#checking-for-updates), when to check for updates.
+>Please consult the [docs](https://angular.io/guide/service-worker-communications#checking-for-updates), when to check for updates.
 
 ## `mat-sw-update` directive
 
@@ -194,6 +194,7 @@ Here's an overview over all contained classes and at what point which methods ar
 :heavy_check_mark: = method is implemented
 
 :x: = method is `abstract`
+
 | `MatSwUpdate` | `MsuDialog` | `MsuDialogEn` | `MsuSnackBar` | `MsuSnackBarEn` |
 |--|--|--|--|--|--|
 |`abstract class`  | :heavy_check_mark: | :heavy_check_mark: | :x:| :heavy_check_mark: |:x:|
